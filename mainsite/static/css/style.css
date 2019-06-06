@@ -1,0 +1,123 @@
+.navbar {
+    background-color: rgb(252, 127, 78) !important;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.navbar-brand {
+    padding-right: 10px;
+    border-right: 0.01rem solid black;
+}
+
+.mynavitem {
+    margin: 5px;
+    border: 1px solid rgb(252, 236, 208);
+    border-radius: 7px;
+}
+.mynavitem:hover{
+    background-color: rgba(255, 182, 153, 0.575);
+}
+
+#profile {
+    border-left: 0.01rem solid black;
+    border-right: 0.01rem solid black;
+}
+#profile img{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(226, 226, 226);
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.myhover:hover{
+    background-color: rgba(255, 182, 153, 0.781);
+    border-radius: 20px;
+}
+
+
+.myform button{
+    border-radius: 20px;
+}
+.myform input{
+    border-radius: 20px;
+}
+
+
+.colborder{
+    margin: 5px;
+    border: 2px solid black;
+}
+.myfooter{
+    background-color: rgb(56, 56, 56);
+    color: azure;
+}
+/* -------------------------profile--------------------------- */
+
+#cardcol {
+    box-shadow: -1px 0 0 rgba(0, 0, 0, 0.5);
+}
+
+#avaimage {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border: 0.1rem solid black;
+    border-radius: 50%;
+    box-shadow: 0 0 0.5rem 0.2rem rgb(122, 122, 122);
+    background: white;
+}
+#mycard {
+    background-color: antiquewhite;
+    box-shadow: 0 0 0.5rem 0.2rem rgba(122,122,122,0.5);
+    border: 0.2rem solid rgba(124, 124, 124, 0.651);
+    border-radius: 2rem;
+}
+
+#profiletitle {
+    font-size: 2.5rem;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.notavailable {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.userimg {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(226, 226, 226);
+    border: 1px solid black;
+    border-radius: 50%;
+}
+#description::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f036";
+    position: absolute;
+    left: -15px;
+}
+#description {
+    margin-left: 30px;
+}
+
+#grouplistimage {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 0.1rem solid black;
+    border-radius: 50%;
+    box-shadow: 0 0 0.5rem 0.2rem rgb(122, 122, 122);
+    background: white;
+}
+
+.hover:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.divider {
+    width: 97%;
+    height: 0px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
+}

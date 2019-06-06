@@ -1,0 +1,60 @@
+{% extends "index.html" %}
+{% block title %}
+Все Профсоюзы - {{block.super}}
+{% endblock %}
+{% block main %}
+
+<div class="row justify-content-center my-3">
+    <div class="col-6">
+        <div class="row justify-content-center">
+            <h2>
+                Список всех Профсоюзов({{ groupcount }}):
+            </h2>
+        </div>
+        {% for group in groups %}
+        <div class="row justify-content-center my-2 hover">
+            <a href="{{ group.get_absolute_url }}">
+                <div style="display: inline-block;">
+                    <img src="{{ group.photo.url }}" id='grouplistimage'>
+                </div>
+            </a>
+            <div class="col-8">
+                <div class="row justify-content-start ml-0">
+                    <span>
+                        <a href="{{ group.get_absolute_url }}" style="text-decoration: none;">{{ group.name|truncatechars:50 }}</a>
+                        <small style="color: slategrey;">(Подписчиков: {{ group.owners.count }})</small>
+                    </span>
+                </div>
+                <div class="row justify-content-start ml-0">
+                    <span style="word-break: break-all;">{% if group.description %}
+                        {{ group.description|truncatechars:89 }}
+                        {% else %}
+                        <span class="notavailable">Без описания.</span>
+                        {% endif %}</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <span>Основан:</span>
+                </div>
+                <div class="row justify-content-center">
+                    <span style="font-size: 0.85rem;">{{ group.date_create }}</span>
+                </div>
+            </div>
+        </div>
+        {% if not forloop.last %}
+        <div class="row">
+            <div class="divider"></div>
+        </div>
+        {% endif %}
+        {% empty %}
+        <div class="row justify-content-center">
+            <h1>Хмм...А тут пусто</h1>
+        </div>
+        {% endfor %}
+        <div class="row justify-content-center mt-4">
+            {% include "includes/pagination_template.html" %}
+        </div>
+    </div>
+</div>
+{% endblock %}

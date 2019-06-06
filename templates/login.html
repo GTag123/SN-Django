@@ -1,0 +1,55 @@
+{% extends "index.html" %}
+{% block title %}Login - {{block.super}}
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row mt-3 justify-content-center">
+        <div class="col-5 text-center">
+            {% if next %}
+            <div class="col px-0">
+                <div class="alert alert-danger">
+                        <ul type="square" style="margin-bottom: 0">
+                            <li><strong>Для выполнения этого действия необходимо авторизоваться!</strong></li>
+                        </ul>
+                    </div>
+            </div>
+            {% endif %}
+            
+            {% for field in form %}
+            <div class="form-group px-3">
+                <div class="row justify-content-center">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <div class="col px-0">
+                        <div class="alert alert-danger mt-2 mb-0">
+                            <ul type="square" style="margin-bottom: 0">
+                                {% for err in field.errors %}
+                                <li><strong>{{ err }}</strong></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                <ul type="square" style="margin-bottom: 0">
+                    {% for err in form.non_field_errors %}
+                    <li><strong>{{ err }}</strong></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-success btn-block">Авторизоваться</button>
+            <span style="display: block; margin-top: 1rem;">Или:</span>
+            <a href="{% url 'reg' %}">Зарегестрироваться</a>
+        </div>
+    </div>
+    </div>
+</form>
+{% endblock %}

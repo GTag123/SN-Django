@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block title %}
+{{ object.title|capfirst }} - {{block.super}}
+{% endblock %}
+{% block main %}
+<h1 align='center'>{{ object.title }}</h1>
+<div class="row justify-content-center">
+    <span>Содеражание:</span>
+</div>
+<div class="row justify-content-center">
+    {{ object.body }}
+</div>
+<div class="row justify-content-center my-3">
+    <span>
+        Опубликовано: {{ object.date_pub }}
+    </span>
+</div>
+{% if object.tags.all %}
+<h4 align='center'>Тэги:</h4>
+<div class="row justify-content-center">
+    <ul>
+        {% for tag in object.tags.all %}
+      <li>
+          {{ tag }}
+      </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+
+{% endblock %}

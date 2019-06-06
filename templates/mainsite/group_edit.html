@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block title %}
+Обновить Профсоюз - {{block.super}}
+{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-7">
+            <form enctype="multipart/form-data" method="post">
+            {% include "includes\form_template.html" %}
+
+        </div>
+        <div class="col-5">
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-outline-warning">Изменить</button>
+            </div>
+            </form>
+            <div class="row justify-content-center my-2">
+                <span>либо:</span>
+            </div>
+            <div class="row justify-content-center mt-2 mb-4">
+                <a href="{{ group.get_absolute_url }}">Назад</a>
+            </div>
+            <div class="row justify-content-center">
+                <form action="{{ group.get_delete_url }}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

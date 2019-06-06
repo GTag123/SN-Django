@@ -1,0 +1,47 @@
+{% extends "index.html" %}
+{% block title %}
+    &laquo;{{ object.username }}&raquo; - {{block.super}}
+{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center">
+    <span id="profiletitle">&laquo;{{ object.username }}&raquo; info:</span>
+</div>
+<div class="row m-3 py-3" id="mycard">
+    <div class="col-lg-4 col-xl-3 col-12 align-self-center">
+        <div class="row justify-content-center">
+            <a href="{{ object.account.photo.url }}"><img src="{{ object.account.photo.url }}" id='avaimage'></a>
+        </div>
+    </div>
+    
+    <div class="col-lg-8 col-xl-9 col-12 my-lg-0 mt-5" id="cardcol">
+        <ul class="list-group">
+            <li class="list-group-item active py-1">Ник: {{ object.username }}</li>
+            <li class="list-group-item py-1">ID: {{ object.pk }}</li>
+            <li class="list-group-item py-1">Email: {% if object.email %}{{ object.email }}
+                {% else %}<span class="notavailable">&lt;не указано&gt;</span>{% endif %}</li>
+            <li class="list-group-item py-1">Имя: {% if object.first_name %}{{ object.first_name }}
+                {% else %}<span class="notavailable">&lt;не указано&gt;</span>{% endif %}</li>
+            <li class="list-group-item py-1">Фамилия: {% if object.last_name %}{{ object.last_name }}
+                {% else %}<span class="notavailable">&lt;не указано&gt;</span>{% endif %}</li>
+            <li class="list-group-item py-1">Возраст: {% if object.account.age %}{{ object.account.age }}
+                {% else %}<span class="notavailable">&lt;не указано&gt;</span>{% endif %}</li>
+            <li class="list-group-item py-1">Полит. взгляды: {% if object.account.views %}{{ object.account.views }}
+                {% else %}<span class="notavailable">&lt;не указано&gt;</span>{% endif %}</li>
+            <li class="list-group-item py-1">Профсоюзы:
+                {% for group in object.account.groups.all %}
+                    <a href="{{ group.get_absolute_url }}">{{ group.name }}</a>{% if forloop.last %}.{% else %},{% endif %}
+                {% empty %}
+                <span class="notavailable">&lt;нет&gt;</span>
+                {% endfor %}
+            </span></li>
+            <li class="list-group-item active py-1">Был онлайн: {{ object.last_login }}</li>
+        </ul>
+    </div>
+</div>
+{% if request.user == object %}
+<div class="row justify-content-center mb-3">
+    <a href="{% url 'profile_edit' %}" class='btn btn-success'>Редактировать</a>
+</div>
+{% endif %}
+{% endblock main %}

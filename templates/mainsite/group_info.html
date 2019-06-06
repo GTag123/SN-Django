@@ -1,0 +1,122 @@
+{% extends "index.html" %}
+{% block title %}
+{{ object.name|capfirst }} - {{block.super}}
+{% endblock %}
+{% block main %}
+<div class="row">
+    <div class="col-9">
+        <div class="col">
+            <div class="row">
+                <h2 class="m-0"><i class="fas fa-globe"></i> Профсоюз: <span
+                        style="font-weight: bold; font-family: Georgia, serif; font-size: 2.5rem">
+                        &#8222;{{ object.name|capfirst }}&#8220;</span></h2> <!-- FIXME: титл выезжает -->
+                {% if request.user.is_authenticated %}
+                <div class="align-self-center" style="right: 0; position: absolute;">
+
+                    {% if request.user.account in object.owners.all %}
+                    <a href="{% url 'group_left' slug=object.slug %}" class="btn btn-outline-danger btn-small">
+                        Отписаться</a>
+                    {% else %}
+                    <a href="{% url 'group_join' slug=object.slug %}" class="btn btn-primary btn-small">
+                        Подписаться</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div class="row mb-3">
+            <div class="col" id="description">
+                {% if object.description %}
+                <span style="word-break: break-all;">
+                    {{ object.description }}
+                </span>
+                {% else %}
+                <span class="notavailable">Пусто</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span><i class="far fa-calendar-alt mr-2"></i>Основан: {{ object.date_create }}</span>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div class="row m-0">
+                    <div>
+                        <i class="fas fa-users" style="display: block"></i>
+                        <span style="display: block">({{ object.owners.count }})</span>
+                    </div>
+                    {% for sub in object.owners.all %}
+                    <div class="mx-2">
+                        <a href="{% url 'profile' pk=sub.user.pk %}" style="text-decoration: none;">
+                            <img src="{{ sub.photo.url }}" class="userimg" style="display: block; margin: 0 auto;">
+                            <span style="display: block; margin: 0 auto;">{{ sub.user.first_name }}</span>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="col">
+            <div class="row">
+                <i class="fas fa-tags"></i>
+                <a href="#" class="badge badge-success mx-2">tag</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 align-self-center">
+        <div class="row justify-content-center">
+            <img src="{{ object.photo.url }}" alt="img" id="avaimage" class="my-2">
+        </div>
+        {% if request.user.account in object.owners.all %}
+        <div class="row justify-content-center">
+            <a href="{{ object.get_update_url }}" class="btn btn-success my-2">Редактировать</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<hr>
+<div class="row justify-content-center">
+    <div class="col-7">
+        <div class="row justify-content-center">
+            <h3>Посты:</h3>
+        </div>
+        <div class="row justify-content-center mb-3">
+            <a href="{% url 'post_create' slug=object.slug %}" class="btn btn-success btn-sm">Создать</a>
+        </div>
+        {% for post in posts %}
+        <div class="card text-center my-3">
+            <div class="card-header">
+                <div class="row justify-content-between px-3">
+                    <span>{{ post.date_pub }}</span>
+                    <span>Автор:
+                        <a href="{{ post.author.get_absolute_url }}" style="text-decoration: none;">
+                                {% if post.author.user.first_name %}
+                                {{ post.author.user.first_name|title }}
+                                {% else %}
+                                {{ post.author.user.username }}
+                                {% endif %}</a>
+                    </span>
+                    <span>Профсоюз: <a href="{{ post.group.get_absolute_url }}" style="text-decoration: none;">
+                        {{ post.group.name }}</a></span>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{% if post.body %}{{ post.body|truncatechars:700 }}{% else %}<span class="notavailable">Пусто</span>{% endif %}</p>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Подробнее</a>
+            </div>
+            <div class="card-footer text-muted">
+                Tags:
+                {% for tag in post.tags.all %}
+                <a href="#" class="badge badge-{{ colors|random }}">{{ tag.title}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}

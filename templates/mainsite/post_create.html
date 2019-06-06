@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block title %}
+Создать пост - {{block.super}}
+{% endblock %}
+
+{% block content %}
+<form enctype="multipart/form-data" method="post">
+<div class="row mt-3">
+    <div class="col-7">
+            {% include "includes\form_template.html" %}
+    </div>
+    <div class="col-5 text-center">
+        <button type="submit" class="btn btn-success">Создать</button>
+    </div>
+</div>
+</form>
+{% endblock %}

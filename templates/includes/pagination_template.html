@@ -1,0 +1,51 @@
+{% if is_paginated %}
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+            <a class="page-link" href="?page={{ page_obj.number|add:-1 }}">
+                Назад</a> {# {% if search_query %}&search={{search_query}}{% endif %} #}
+        </li> 
+
+        {% for n in page_obj.paginator.page_range %}
+
+        {% if page_obj.number == n %}
+        <li class="page-item active">
+            <a class="page-link"
+                href="?page={{ n }}">{{ n }}</a>
+        </li>
+
+        {% elif n == 1 %}
+        <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ n }}">{{ n }}</a>
+        </li>
+        <li class="page-item disabled">
+                <a class="page-link"
+                href="#">...</a>
+        </li>
+
+        {% elif n == page_obj.paginator.num_pages %}
+        <li class="page-item disabled">
+                <a class="page-link"
+                href="#">...</a>
+        </li>
+        <li class="page-item">
+                <a class="page-link"
+                    href="?page={{ n }}{% if search_query %}&search={{search_query}}{% endif %}">{{ n }}</a>
+        </li>
+
+        {% elif n > page_obj.number|add:-3 and n < page_obj.number|add:3 %}
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ n }}{% if search_query %}&search={{search_query}}{% endif %}">{{ n }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
+            <a class="page-link"
+                href="?page={{ page_obj.number|add:1 }}">Вперёд</a> {# {% if search_query %}&search={{search_query}}{% endif %} #}
+        </li>
+    </ul>
+</nav>
+{% endif %}

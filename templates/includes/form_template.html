@@ -1,0 +1,24 @@
+{% csrf_token %}
+{% for field in form %}
+<div class="form-group px-3">
+    <div class="row justify-content-center">
+        <span>{{ field.label_tag }} <small>{{ field.help_text }}</small></span>
+    </div>
+        <div class="row justify-content-center">
+            {{ field }}
+        </div>
+        {% if field.errors %}
+        <div class="row justify-content-center">
+            <div class="col px-0">
+                <div class="alert alert-danger mt-2 mb-0">
+                    <ul type="square" style="margin-bottom: 0">
+                        {% for err in field.errors %}
+                        <li><strong>{{ err }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+</div>
+{% endfor %}

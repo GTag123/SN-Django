@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block title %}
+Расформировать "{{ post.title|title }}"? - {{ block.super }}
+{% endblock %}
+
+{% block main %}
+<div class="row m-4">
+    <form method="POST">
+        {% csrf_token %}
+        <h3>Вы уверены что хотите расформировать Профсоюз &laquo;{{ object.name|capfirst }}&raquo;?</h3>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-success">Назад</a>
+        <button class="btn btn-danger" type="submit">Удалить</button>
+    </form>
+</div>
+
+{% endblock %}
